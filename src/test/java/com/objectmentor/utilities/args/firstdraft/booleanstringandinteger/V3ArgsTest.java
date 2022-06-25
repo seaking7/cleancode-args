@@ -40,102 +40,98 @@ class V3ArgsTest {
         assertThat(loggingFlag1).isTrue();
         assertThat(loggingFlag2).isTrue();
     }
-//
-//    @Test
-//    public void onlyOneOfTwoLoggingFlagsAreEnabled() throws ParseException {
-//        V3Args arg = new V3Args("l,X", new String[]{"-X"});
-//        boolean loggingFlag1 = arg.getBoolean('l');
-//        boolean loggingFlag2 = arg.getBoolean('X');
-//        assertThat("First logging flag", loggingFlag1, is(false));
-//        assertThat("Second logging flag", loggingFlag2, is(true));
-//    }
-//
-//    @Test
-//    public void checkThatOneStringFlagIsEnabledAndCorrespondingArgumentIsPassed() throws ParseException {
-//        V3Args arg = new V3Args("d*", new String[]{"-d", "C:/Temp"});
-//        String stringArgument = arg.getString('d');
-//        assertThat("String argument", stringArgument, is(equalTo("C:/Temp")));
-//    }
-//
-//    @Test
-//    public void loggingAndStringFlagsEnabledAndBothAreUsed() throws ParseException {
-//        V3Args arg = new V3Args("f*,l", new String[]{"-l", "-f", "C:/Temp/hello.txt"});
-//        boolean logging = arg.getBoolean('l');
-//        String stringArgument = arg.getString('f');
-//        assertThat("Logging", logging, is(true));
-//        assertThat("String argument", stringArgument, is(equalTo("C:/Temp/hello.txt")));
-//    }
-//
-//    @Test
-//    public void checkThatV3ArgsHasFoundLoggingArgument() throws ParseException {
-//        V3Args arg = new V3Args("l", new String[]{"-l"});
-//        boolean hasLogging = arg.has('l');
-//        assertThat("Logging was found", hasLogging, is(true));
-//    }
-//
-//    @Test
-//    public void ifNothingIsPassedV3ArgsIsValid() throws ParseException {
-//        V3Args arg = new V3Args("", new String[]{});
-//        boolean isValid = arg.isValid();
-//        assertThat("Arg must be valid", isValid, is(true));
-//    }
-//
-//    @Test(expected = ParseException.class)
-//    public void ifSchemaContainsInvalidCharactersThrowParseException() throws ParseException {
-//        new V3Args("bx", null);
-//    }
-//
-//    @Test
-//    public void ifSchemaContainsInvalidCharactersCheckErrorMessageOfThrownParseException() throws ParseException {
-//        try {
-//            new V3Args("bx", null);
-//        } catch (ParseException e) {
-//            String errorMessage = e.getMessage();
-//            assertThat("Error message", errorMessage, is(equalTo("Argument: b has invalid format: x.")));
-//        }
-//    }
-//
-//    @Test
-//    public void invalidArgumentIsPassedForBoolean() throws ParseException {
-//        V3Args arg = new V3Args("l", new String[]{"-p"});
-//        boolean isValid = arg.isValid();
-//        assertThat("Arg must be invalid", isValid, is(false));
-//    }
-//
-//    @Test
-//    public void checkErrorMessageForMissingArgumentOfStringSchema() throws Exception {
-//        V3Args arg = new V3Args("d*", new String[]{"-d"});
-//        String errorMessage = arg.errorMessage();
-//        assertThat("Error message", errorMessage, is(equalTo("Could not find string parameter for -d.")));
-//    }
-//
-//    @Test
-//    public void checkErrorMessageForMissingArgumentOfIntegerSchema() throws Exception {
-//        V3Args arg = new V3Args("p#", new String[]{"-p"});
-//        String errorMessage = arg.errorMessage();
-//        assertThat("Error message", errorMessage, is(equalTo("Could not find integer parameter for -p.")));
-//    }
-//
-//    @Test
-//    public void checkErrorMessageForInvalidArgumentOfIntegerSchema() throws Exception {
-//        V3Args arg = new V3Args("p#", new String[]{"-p", "Foo"});
-//        String errorMessage = arg.errorMessage();
-//        assertThat("Error message", errorMessage, is(equalTo("Argument -p expects an integer but was 'Foo'.")));
-//    }
-//
-//    @Test
-//    public void ifArgumentIsMissingForStringSchemaV3ArgsMustBeInvalid() throws Exception {
-//        V3Args arg = new V3Args("d*", new String[]{"-d"});
-//        boolean isValid = arg.isValid();
-//        assertThat("com.objectmentor.utilities.V3Args.seconddraft.com.objectmentor.utilities.V3Args.seconddraft.V3Args must be invalid", isValid, is(false));
-//    }
-//
-//    @Test
-//    public void ifArgumentIsMissingForIntegerSchemaV3ArgsMustBeInvalid() throws Exception {
-//        V3Args arg = new V3Args("p#", new String[]{"-p"});
-//        boolean isValid = arg.isValid();
-//        assertThat("com.objectmentor.utilities.V3Args.seconddraft.com.objectmentor.utilities.V3Args.seconddraft.V3Args must be invalid", isValid, is(false));
-//    }
+
+    @Test
+    public void onlyOneOfTwoLoggingFlagsAreEnabled() throws ParseException {
+        V3Args arg = new V3Args("l,X", new String[]{"-X"});
+        boolean loggingFlag1 = arg.getBoolean('l');
+        boolean loggingFlag2 = arg.getBoolean('X');
+        assertThat(loggingFlag1).isFalse();
+        assertThat(loggingFlag2).isTrue();
+    }
+
+    @Test
+    public void checkThatOneStringFlagIsEnabledAndCorrespondingArgumentIsPassed() throws ParseException {
+        V3Args arg = new V3Args("d*", new String[]{"-d", "C:/Temp"});
+        String stringArgument = arg.getString('d');
+        assertThat(stringArgument).isEqualTo("C:/Temp");
+    }
+
+    @Test
+    public void loggingAndStringFlagsEnabledAndBothAreUsed() throws ParseException {
+        V3Args arg = new V3Args("f*,l", new String[]{"-l", "-f", "C:/Temp/hello.txt"});
+        boolean logging = arg.getBoolean('l');
+        String stringArgument = arg.getString('f');
+        assertThat(logging).isTrue();
+        assertThat(stringArgument).isEqualTo("C:/Temp/hello.txt");
+    }
+
+    @Test
+    public void checkThatV3ArgsHasFoundLoggingArgument() throws ParseException {
+        V3Args arg = new V3Args("l", new String[]{"-l"});
+        boolean hasLogging = arg.has('l');
+        assertThat(hasLogging).isTrue();
+    }
+
+    @Test
+    public void ifNothingIsPassedV3ArgsIsValid() throws ParseException {
+        V3Args arg = new V3Args("", new String[]{});
+        boolean isValid = arg.isValid();
+        assertThat(isValid).isTrue();
+    }
+
+
+    @Test
+    public void ifSchemaContainsInvalidCharactersCheckErrorMessageOfThrownParseException() throws ParseException {
+        try {
+            new V3Args("bx", null);
+        } catch (ParseException e) {
+            String errorMessage = e.getMessage();
+            assertThat(errorMessage).isEqualTo("Argument: b has invalid format: x.");
+        }
+    }
+
+    @Test
+    public void invalidArgumentIsPassedForBoolean() throws ParseException {
+        V3Args arg = new V3Args("l", new String[]{"-p"});
+        boolean isValid = arg.isValid();
+        assertThat(isValid).isFalse();
+    }
+
+    @Test
+    public void checkErrorMessageForMissingArgumentOfStringSchema() throws Exception {
+        V3Args arg = new V3Args("d*", new String[]{"-d"});
+        String errorMessage = arg.errorMessage();
+        assertThat(errorMessage).isEqualTo("Could not find string parameter for -d.");
+    }
+
+    @Test
+    public void checkErrorMessageForMissingArgumentOfIntegerSchema() throws Exception {
+        V3Args arg = new V3Args("p#", new String[]{"-p"});
+        String errorMessage = arg.errorMessage();
+        assertThat(errorMessage).isEqualTo("Could not find integer parameter for -p.");
+    }
+
+    @Test
+    public void checkErrorMessageForInvalidArgumentOfIntegerSchema() throws Exception {
+        V3Args arg = new V3Args("p#", new String[]{"-p", "Foo"});
+        String errorMessage = arg.errorMessage();
+        assertThat(errorMessage).isEqualTo("Argument -p expects an integer but was 'Foo'");
+    }
+
+    @Test
+    public void ifArgumentIsMissingForStringSchemaV3ArgsMustBeInvalid() throws Exception {
+        V3Args arg = new V3Args("d*", new String[]{"-d"});
+        boolean isValid = arg.isValid();
+        assertThat(isValid).isFalse();
+    }
+
+    @Test
+    public void ifArgumentIsMissingForIntegerSchemaV3ArgsMustBeInvalid() throws Exception {
+        V3Args arg = new V3Args("p#", new String[]{"-p"});
+        boolean isValid = arg.isValid();
+        assertThat(isValid).isFalse();
+    }
 //
 //    @Test
 //    public void ifArgumentIsMissingForStringSchemaABlankMustBeReturned() throws Exception {
@@ -171,27 +167,27 @@ class V3ArgsTest {
 //        String usage = arg.usage();
 //        assertThat("Usage", usage, is(equalTo("-[l]")));
 //    }
-//
-//    @Test
-//    public void cardinalityForOneValidBooleanArgumentMustBeOne() throws ParseException {
-//        V3Args arg = new V3Args("l", new String[]{"-l"});
-//        int cardinality = arg.cardinality();
-//        assertThat("Cardinality", cardinality, is(1));
-//    }
-//
-//    @Test
-//    public void printEmptyUsageIfNoArgumentsArePassed() throws ParseException {
-//        V3Args arg = new V3Args("", new String[]{});
-//        String usage = arg.usage();
-//        assertThat("Usage", usage, is(equalTo("")));
-//    }
-//
-//    @Test
-//    public void loggingFlagMustNotBeFollowedByArgument() throws ParseException {
-//        V3Args arg = new V3Args("l", new String[]{"-l", "p"});
-//        boolean isValid = arg.isValid();
-//        assertThat("Arg must be invalid", isValid, is(false));
-//    }
+
+    @Test
+    public void cardinalityForOneValidBooleanArgumentMustBeOne() throws ParseException {
+        V3Args arg = new V3Args("l", new String[]{"-l"});
+        int cardinality = arg.cardinality();
+        assertThat(cardinality).isEqualTo(1);
+    }
+
+    @Test
+    public void printEmptyUsageIfNoArgumentsArePassed() throws ParseException {
+        V3Args arg = new V3Args("", new String[]{});
+        String usage = arg.usage();
+        assertThat(usage).isEqualTo("");
+    }
+
+    @Test
+    public void loggingFlagMustNotBeFollowedByArgument() throws ParseException {
+        V3Args arg = new V3Args("l", new String[]{"-l", "p"});
+        boolean isValid = arg.isValid();
+        assertThat(isValid).isFalse();
+    }
 //
 //    @Test(expected = ParseException.class)
 //    public void ifSchemaElementIdIsNotACharacterThrowParseException() throws ParseException {
@@ -207,14 +203,14 @@ class V3ArgsTest {
 //            assertThat("Error message", errorMessage, is(equalTo("Bad character:1in com.objectmentor.utilities.V3Args.seconddraft.com.objectmentor.utilities.V3Args.seconddraft.V3Args format: 1")));
 //        }
 //    }
-//
-//    @Test
-//    public void errorMessageOnlyContainsInvalidCharacter() throws ParseException {
-//        try {
-//            V3Args arg = new V3Args("g,d*,2", null);
-//        } catch (ParseException e) {
-//            String errorMessage = e.getMessage();
-//            assertThat("Error message", errorMessage, is(equalTo("Bad character:2in com.objectmentor.utilities.V3Args.seconddraft.com.objectmentor.utilities.V3Args.seconddraft.V3Args format: g,d*,2")));
-//        }
-//    }
+
+    @Test
+    public void errorMessageOnlyContainsInvalidCharacter() throws ParseException {
+        try {
+            V3Args arg = new V3Args("g,d*,2", null);
+        } catch (ParseException e) {
+            String errorMessage = e.getMessage();
+            assertThat(errorMessage).isEqualTo("Bad character:2in com.objectmentor.utilities.V3Args.seconddraft.com.objectmentor.utilities.V3Args.seconddraft.V3Args format: g,d*,2");
+        }
+    }
 }
