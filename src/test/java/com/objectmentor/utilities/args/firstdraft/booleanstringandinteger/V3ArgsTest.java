@@ -1,5 +1,6 @@
 package com.objectmentor.utilities.V3Args.firstdraft.booleanstringandinteger;
 
+import com.objectmentor.utilities.args.firstdraft.booleanandstring.V2Args;
 import com.objectmentor.utilities.args.firstdraft.booleanstringandinteger.V3Args;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -132,41 +133,44 @@ class V3ArgsTest {
         boolean isValid = arg.isValid();
         assertThat(isValid).isFalse();
     }
-//
-//    @Test
-//    public void ifArgumentIsMissingForStringSchemaABlankMustBeReturned() throws Exception {
-//        V3Args arg = new V3Args("d*", new String[]{"-d"});
-//        String stringArgument = arg.getString('d');
-//        assertThat("String argument", stringArgument, is(equalTo("")));
-//    }
-//
-//    @Test
-//    public void ifArgumentIsMissingForIntegerSchemaZeroMustBeReturned() throws Exception {
-//        V3Args arg = new V3Args("p#", new String[]{"-p"});
-//        int intArgument = arg.getInt('p');
-//        assertThat("Integer argument", intArgument, is(0));
-//    }
-//
-//    @Test
-//    public void checkErrorMessageForWrongArgument() throws Exception {
-//        V3Args arg = new V3Args("l", new String[]{"-p"});
-//        String errorMessage = arg.errorMessage();
-//        assertThat("Error message", errorMessage, is(equalTo("Argument(s) -p unexpected.")));
-//    }
-//
-//    @Test(expected = Exception.class)
-//    public void printEmptyErrorMessageForValidArgument() throws Exception {
-//        V3Args arg = new V3Args("l", new String[]{"-l"});
-//        String errorMessage = arg.errorMessage();
-//        assertThat("Error message", errorMessage, is(equalTo("")));
-//    }
-//
-//    @Test
-//    public void printUsageForLoggingFlag() throws ParseException {
-//        V3Args arg = new V3Args("l", new String[]{"-l"});
-//        String usage = arg.usage();
-//        assertThat("Usage", usage, is(equalTo("-[l]")));
-//    }
+
+    @Test
+    public void ifArgumentIsMissingForStringSchemaABlankMustBeReturned() throws Exception {
+        V3Args arg = new V3Args("d*", new String[]{"-d"});
+        String stringArgument = arg.getString('d');
+        assertThat(stringArgument).isEqualTo("");
+    }
+
+    @Test
+    public void ifArgumentIsMissingForIntegerSchemaZeroMustBeReturned() throws Exception {
+        V3Args arg = new V3Args("p#", new String[]{"-p"});
+        int intArgument = arg.getInt('p');
+        assertThat(intArgument).isEqualTo(0);
+    }
+
+    @Test
+    public void checkErrorMessageForWrongArgument() throws Exception {
+        V3Args arg = new V3Args("l", new String[]{"-p"});
+        String errorMessage = arg.errorMessage();
+        assertThat(errorMessage).isEqualTo("Argument(s) -p unexpected.");
+    }
+
+    @Test
+    public void printEmptyErrorMessageForValidArgument() throws Exception {
+        V3Args arg = new V3Args("l", new String[]{"-l"});
+        Exception exception = assertThrows(Exception.class, () -> {
+            String errorMessage = arg.errorMessage();
+        });
+
+        assertThat(exception.getMessage()).isEqualTo("TILT: Should not get here.");
+    }
+
+    @Test
+    public void printUsageForLoggingFlag() throws ParseException {
+        V3Args arg = new V3Args("l", new String[]{"-l"});
+        String usage = arg.usage();
+        assertThat(usage).isEqualTo("-[l]");
+    }
 
     @Test
     public void cardinalityForOneValidBooleanArgumentMustBeOne() throws ParseException {
