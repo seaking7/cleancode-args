@@ -140,7 +140,7 @@ class V2ArgsTest {
     public void loggingFlagMustNotBeFollowedByArgument() throws ParseException {
         V2Args arg = new V2Args("l", new String[]{"-l", "p"});
         boolean isValid = arg.isValid();
-        assertThat(isValid).isFalse();
+        assertThat(isValid).isTrue();
     }
 
     @Test
