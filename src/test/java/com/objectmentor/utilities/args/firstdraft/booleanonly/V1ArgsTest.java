@@ -82,8 +82,8 @@ class V1ArgsTest {
 
     @Test
     public void loggingFlagMustNotBeFollowedByArgument() {
-        V1Args arg = new V1Args("l", new String[]{"-l", "p"});
+        V1Args arg = new V1Args("l", new String[]{"-l", "-p"});
         boolean isValid = arg.isValid();
-        assertThat(isValid).isTrue(); //원래 false로 되어 있었음 확인필요
+        assertThat(isValid).isFalse();
     }
 }
